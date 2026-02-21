@@ -5,6 +5,12 @@ const cors = require('cors');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
+// Import routes
+const referencesRoute = require('./routes/referencesRoute');
+const projectsRoute = require('./routes/projectsRoute');
+const servicesRoute = require('./routes/servicesRoute');
+const usersRoute = require('./routes/usersRoute');
+
 const app = express();
 
 // Middleware
@@ -12,10 +18,11 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Test Route
-app.get('/', (req, res) => {
-  res.json({ message: "API Running" });
-});
+// Routes
+app.use('/api/references', referencesRoute);
+app.use('/api/projects', projectsRoute);
+app.use('/api/services', servicesRoute);
+app.use('/api/users', usersRoute);
 
 // 404 handler
 app.use((req, res, next) => {
